@@ -847,7 +847,7 @@ class ChromyreDoc(BaseDocTemplate):
             canvas.translate(-(MARGIN_INNER - MARGIN_OUTER), 0)
 
     def _page_num(self, canvas, doc):
-        if doc.page <= 9:
+        if doc.page <= 10:
             return
         canvas.saveState()
         canvas.setFont("Serif", 9)
@@ -947,7 +947,11 @@ def build_front_matter(styles):
         spaceBefore=14, spaceAfter=4, hAlign="CENTER",
     ))
     story.append(Paragraph("1–0  ·  White wins", styles["result_line"]))
-    # Chapter 1 starts on next page via the SECTION PageBreak.
+
+    # p10: blank verso — pushes Chapter 1 onto p11 (recto / right-hand page).
+    story.extend(_blank_page(styles))
+
+    # Chapter 1 starts on next page (p11, odd/recto) via the SECTION PageBreak.
 
     return story
 
