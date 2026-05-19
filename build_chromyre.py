@@ -81,12 +81,21 @@ def register_fonts():
 TITLE_LINE_1 = "CHROMYRE"
 TITLE_LINE_2 = "CHRONICLES"
 
-STUDENT_LINES = [
-    "Mehdi Al-Abdul-Rasool · Emad Edeen Alhashemi",
-    "Ali Alnasser · Sri Charith Badeti · Yoyo Fang",
-    "Rohan Gadiraju · Ahaana Guggari · Mustafa Haydar",
-    "Zaid Mahdi · Hannah Mix · Xenia Odare · Mya Pradhan",
+_STUDENT_LINES_RAW = [
+    "Mehdi Al-Abdul-Rasool",
+    "Emad Edeen Alhashemi",
+    "Ali Alnasser · Sri Charith Badeti",
+    "Yoyo Fang · Rohan Gadiraju",
+    "Ahaana Guggari · Mustafa Haydar",
+    "Zaid Mahdi · Hannah Mix",
+    "Xenia Odare · Mya Pradhan",
     "Kincaid Avery Start · Ryann Stoops",
+]
+# Replace spaces within names with non-breaking spaces so a name never splits
+# mid-word during line-wrap. Names are separated by " · ".
+STUDENT_LINES = [
+    " · ".join(name.replace(" ", " ") for name in line.split(" · "))
+    for line in _STUDENT_LINES_RAW
 ]
 
 DEDICATION_LINES = [
@@ -130,7 +139,7 @@ TEACHER_NOTE_PARAS = [
 ]
 
 COPYRIGHT_LINES = [
-    "Copyright © 2026 by Joseph Song",
+    "Copyright © 2026 by Yoyo Fang and 14 PSCA Students",
     "",
     "All rights reserved. No part of this book may be reproduced or used in any "
     "manner without written permission of the copyright owner except for the use "
@@ -145,12 +154,11 @@ COPYRIGHT_LINES = [
     "Back cover art by Hannah Mix.",
     "",
     "Chess & Narrative",
-    "Plymouth, MI",
-    "",
-    "Joseph Song",
+    "Taught by Joseph Song",
     "",
     "Plymouth Scholars Charter Academy",
     "Sabrina Terenzi, Principal",
+    "Plymouth, MI",
 ]
 
 
