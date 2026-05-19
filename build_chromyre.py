@@ -32,8 +32,10 @@ from reportlab.platypus.tableofcontents import TableOfContents
 
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-SRC_MD = os.path.join(HERE, "chromyre_manuscript_censored.md")
-OUT_PDF = os.path.join(HERE, "Chromyre_Chronicles_FINAL.pdf")
+DEFAULT_SRC_MD = os.path.join(HERE, "chromyre_manuscript_censored.md")
+DEFAULT_OUT_PDF = os.path.join(HERE, "Chromyre_Chronicles_FINAL.pdf")
+SRC_MD = DEFAULT_SRC_MD
+OUT_PDF = DEFAULT_OUT_PDF
 
 
 # ---------------------------------------------------------------------------
@@ -1091,6 +1093,17 @@ def build_story(blocks, styles, boards):
 # ---------------------------------------------------------------------------
 
 def main():
+    import argparse
+    parser = argparse.ArgumentParser(description="Build Chromyre Chronicles PDF.")
+    parser.add_argument("--source", default=DEFAULT_SRC_MD,
+                        help="Markdown source file (default: censored manuscript)")
+    parser.add_argument("--output", default=DEFAULT_OUT_PDF,
+                        help="Output PDF path (default: Chromyre_Chronicles_FINAL.pdf)")
+    args = parser.parse_args()
+    global SRC_MD, OUT_PDF
+    SRC_MD = args.source
+    OUT_PDF = args.output
+
     register_fonts()
     styles = make_styles()
 
