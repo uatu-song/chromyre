@@ -253,8 +253,23 @@ SONG = [
     ("C", "The king, the king, the king"),
 ]
 
-SONG_TEXTS = {t for _, t in SONG if t}
-SONG_FIRST_LINE = SONG[0][1]
+def _normalize_quotes(s):
+    """Collapse curly quotes/apostrophes to ASCII for comparison purposes.
+
+    The SONG constant uses curly quotes for prettier rendering, but the
+    markdown source uses straight ASCII quotes. Without normalization,
+    a single curly/straight mismatch makes a song line fail the lookup,
+    which turns off song-mode and causes every subsequent verse to be
+    re-emitted as a prose paragraph.
+    """
+    return (
+        s.replace("“", '"').replace("”", '"')
+         .replace("‘", "'").replace("’", "'")
+    )
+
+
+SONG_TEXTS = {_normalize_quotes(t) for _, t in SONG if t}
+SONG_FIRST_LINE = _normalize_quotes(SONG[0][1])
 
 
 # ---------------------------------------------------------------------------
@@ -576,7 +591,8 @@ def parse_markdown(path):
             continue
 
         # Song handling: starts when we see the first song line; ends when a non-song line appears.
-        if not in_song and s == SONG_FIRST_LINE:
+        s_normalized = _normalize_quotes(s)
+        if not in_song and s_normalized == SONG_FIRST_LINE:
             flush()
             in_song = True
             for kind, txt in SONG:
@@ -589,7 +605,7 @@ def parse_markdown(path):
             continue
         if in_song:
             # Skip every song body line (we already emitted from SONG constant).
-            if s in SONG_TEXTS:
+            if s_normalized in SONG_TEXTS:
                 continue
             in_song = False
 

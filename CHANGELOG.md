@@ -359,3 +359,17 @@ sides so swaps don't cause false-positive misses.
 Result: **zero docx paragraphs missing from the markdown** (excluding the
 intentionally-replaced Ch9 Monk long original). The Ch9 omission was the
 only genuine transcription loss in the entire book.
+
+### Pass 20a — Fix song lines re-emitted as prose (curly vs straight quote mismatch)
+The build script's `SONG` constant used curly typographic quotes (`“ ”`) for
+"The king said "too manyyyy"", while the markdown source used straight ASCII
+quotes (`" "`). The parser's `s in SONG_TEXTS` lookup failed at that line,
+which flipped the `in_song` state off mid-song. Every subsequent verse line
+then got re-emitted as a PARA block, causing the final stanza of the song to
+appear twice on p153 — once correctly italic/bold-italic centered (from the
+SONG constant), and once again as plain justified prose (from the markdown).
+
+Fix: added `_normalize_quotes()` helper in `build_chromyre.py` that collapses
+typographic quotes to ASCII for lookup purposes only. The SONG constant
+keeps its curly quotes for prettier rendered output; the parser's comparison
+is now quote-insensitive.
