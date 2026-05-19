@@ -328,3 +328,34 @@ Action:
 
 This also resolves the last remaining "CHAR header at end of page" warning
 from the layout scan (p74 was the empty Henry block).
+
+### Pass 20 — Restore two dropped paragraphs from new Ch9 spec
+The new Ch9 (HANDOFF.md / "CLAUDE_CODE_HANDOFF (1).md" — the short rewrite
+that replaces the kid-author's original Monk chapter) had two paragraphs
+dropped during the hand-transcription into the markdown. Restored:
+
+1. Between the song and "By the last verse...":
+   *Every victory has a cost and I have three captures and thirteen names
+   in this journal and a cure that works and not that many people left to
+   give it to.*
+   - Cipher applied: `three kills` → `three captures` (per the cipher
+     refinement in [[feedback-cipher-captured-over-took]]).
+   - This is Monk's reckoning beat: body count, names recorded, cure made,
+     irony of having both.
+
+2. Between "By the last verse..." and "It went somewhere.":
+   *I don't know how far the song went after that.*
+   - No cipher words. Restored verbatim.
+   - This sentence introduces "the song" as the antecedent for "It went
+     somewhere." — without it, the final line of the book is nonsensical
+     ("It" has nothing to refer to).
+
+### Pass 20 audit — full docx-vs-markdown comparison
+Triggered by Pass 20's finding. Ran systematic paragraph-level comparison
+between `Chromyre_Chronicles_Clean (2).docx` and the censored markdown,
+with cipher / harmonization / pronoun-gender normalization applied to both
+sides so swaps don't cause false-positive misses.
+
+Result: **zero docx paragraphs missing from the markdown** (excluding the
+intentionally-replaced Ch9 Monk long original). The Ch9 omission was the
+only genuine transcription loss in the entire book.

@@ -1986,6 +1986,13 @@ Who's sitting up high while we rot in the lane?
 The king, the king, the king
 
 
+Every victory has a cost and I have three captures and thirteen names in this journal and a cure that works and not that many people left to give it to.
+
+
 By the last verse everyone was singing it and the guards were singing it and the man who could move his arm again was crying while he sang which I had not seen before.
+
+
+I don't know how far the song went after that.
+
 
 It went somewhere.
